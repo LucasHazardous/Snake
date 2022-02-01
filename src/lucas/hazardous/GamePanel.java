@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
@@ -15,6 +16,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private static final int UNIT_SIZE = 25;
     private static final int GAME_UNITS = (SCREEN_HEIGHT*SCREEN_WIDTH)/UNIT_SIZE;
     private static final int DELAY = 100;
+
     private final int x[] = new int[GAME_UNITS];
     private final int y[] = new int[GAME_UNITS];
     private int bodyParts = 5;
@@ -149,6 +151,20 @@ public class GamePanel extends JPanel implements ActionListener {
         repaint();
     }
 
+    public void restart() {
+        bodyParts = 5;
+        applesEaten = 0;
+        direction = 'R';
+        x[0] = UNIT_SIZE;
+        y[0] = UNIT_SIZE;
+        Arrays.fill(x, 0);
+        Arrays.fill(y, 0);
+        newApple();
+        running = true;
+        timer.start();
+        repaint();
+    }
+
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -177,6 +193,10 @@ public class GamePanel extends JPanel implements ActionListener {
                         direction = 'D';
                     }
                     break;
+                case KeyEvent.VK_R:
+                    if(!running) {
+                        restart();
+                    }
             }
         }
     }

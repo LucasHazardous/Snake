@@ -14,7 +14,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private static final int SCREEN_HEIGHT = 500;
     private static final int UNIT_SIZE = 25;
     private static final int GAME_UNITS = (SCREEN_HEIGHT*SCREEN_WIDTH)/UNIT_SIZE;
-    private static final int DELAY = 50;
+    private static final int DELAY = 100;
     private final int x[] = new int[GAME_UNITS];
     private final int y[] = new int[GAME_UNITS];
     private int bodyParts = 5;
@@ -99,7 +99,22 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkCollisions() {
+        for (int i = bodyParts; i > 0; i--) {
+            if(x[0] == x[i] && y[0] == y[i]) {
+                running = false;
+            }
+        }
 
+        if((x[0] < 0) ||
+                (x[0] > SCREEN_WIDTH-1) ||
+                (y[0] < 0) ||
+                (y[0] > SCREEN_HEIGHT-1)) {
+            running = false;
+        }
+
+        if(!running) {
+            timer.stop();
+        }
     }
 
     public void gameOver() {

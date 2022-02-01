@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
-import java.util.Timer;
 
 public class GamePanel extends JPanel implements ActionListener {
 
@@ -27,12 +26,21 @@ public class GamePanel extends JPanel implements ActionListener {
     private Timer timer;
     private Random random;
 
-    GamePanel() {
 
+    GamePanel() {
+        random = new Random();
+        this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
+        this.setBackground(Color.black);
+        this.setFocusable(true);
+        this.addKeyListener(new MyKeyAdapter());
+        startGame();
     }
 
     public void startGame() {
-
+        newApple();
+        running = true;
+        timer = new Timer(DELAY, this);
+        timer.start();
     }
 
     public void paintComponent(Graphics g) {
@@ -40,6 +48,10 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void draw(Graphics g) {
+
+    }
+
+    public void newApple() {
 
     }
 

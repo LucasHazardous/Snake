@@ -48,22 +48,29 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void draw(Graphics g) {
-        for (int i = 0; i < SCREEN_HEIGHT/UNIT_SIZE; i++) {
-            g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
-        }
-        for (int i = 0; i < SCREEN_WIDTH/UNIT_SIZE; i++) {
-            g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
-        }
-        g.setColor(Color.green);
-        g.fillRect(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-        for(int i = 0; i < bodyParts; i++) {
-            if(i == 0) {
-                g.setColor(Color.cyan);
-                g.fillRect(x[0], y[0], UNIT_SIZE, UNIT_SIZE);
-            } else {
-                g.setColor(Color.blue);
-                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+        if(running) {
+            for (int i = 0; i < SCREEN_HEIGHT/UNIT_SIZE; i++) {
+                g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
             }
+
+            for (int i = 0; i < SCREEN_WIDTH/UNIT_SIZE; i++) {
+                g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
+            }
+
+            g.setColor(Color.green);
+            g.fillRect(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+
+            for(int i = 0; i < bodyParts; i++) {
+                if(i == 0) {
+                    g.setColor(Color.cyan);
+                    g.fillRect(x[0], y[0], UNIT_SIZE, UNIT_SIZE);
+                } else {
+                    g.setColor(Color.blue);
+                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+                }
+            }
+        } else {
+            gameOver(g);
         }
     }
 
@@ -121,8 +128,15 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void gameOver() {
-
+    public void gameOver(Graphics g) {
+        g.setColor(Color.red);
+        g.setFont(new Font("Monospaced", Font.ITALIC, UNIT_SIZE*2));
+        FontMetrics metrics = getFontMetrics(g.getFont());
+        String gameOverText = "Game Over";
+        g.drawString(gameOverText, (SCREEN_WIDTH - metrics.stringWidth(gameOverText))/2, SCREEN_HEIGHT/2);
+        g.setFont(new Font("Monospaced", Font.BOLD, UNIT_SIZE));
+        String scoreMessage = String.format("Score: %d", applesEaten);
+        g.drawString(scoreMessage, (SCREEN_WIDTH - metrics.stringWidth(scoreMessage))/2, SCREEN_HEIGHT/2+UNIT_SIZE*2);
     }
 
     @Override

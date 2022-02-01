@@ -95,7 +95,11 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkApple() {
-
+        if((x[0] == appleX) && (y[0] == appleY)) {
+            bodyParts++;
+            applesEaten++;
+            newApple();
+        }
     }
 
     public void checkCollisions() {
@@ -120,7 +124,6 @@ public class GamePanel extends JPanel implements ActionListener {
     public void gameOver() {
 
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

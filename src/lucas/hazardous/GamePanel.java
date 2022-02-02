@@ -155,8 +155,6 @@ public class GamePanel extends JPanel implements ActionListener {
         bodyParts = 5;
         applesEaten = 0;
         direction = 'R';
-        x[0] = UNIT_SIZE;
-        y[0] = UNIT_SIZE;
         Arrays.fill(x, 0);
         Arrays.fill(y, 0);
         newApple();
